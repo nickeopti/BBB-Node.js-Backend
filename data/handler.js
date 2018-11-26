@@ -1,3 +1,15 @@
+/**
+ * This module works as an intermediary delegate,
+ * that delegates routines to the corresponding
+ * data-processing modules, that in turn returns
+ * the requested data
+ */
+
+ /**
+  * Add each new data-processing module
+  * as a requirement here, and include
+  * an entry for it in the dictionay below
+  */
 const homezone_wheel = require('./homezone-wheel')
 const homezone_points = require('./homezone-points')
 const zone_count = require('./zone-count')
@@ -24,7 +36,6 @@ module.exports = {
         handler = handlers[query.data]
         
         if (handler !== undefined) {
-            // Get the specific data-handler to handle the GET request
             handler.getDataAsJSON(query, (result) => {
                 callback(result)
             })
