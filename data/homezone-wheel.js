@@ -64,6 +64,5 @@ module.exports = {
         db.query(sqlQuery, (err, res) => {
             callback(prepareData(res.rows))
         })
-        
     }
 }

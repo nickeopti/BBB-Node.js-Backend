@@ -30,6 +30,5 @@ module.exports = {
         db.query(sqlQuery, (err, res) => {
             callback(res.rows)
         })
-        
     }
 }
