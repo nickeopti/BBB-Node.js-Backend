@@ -6,7 +6,7 @@
  * the geocoded point-of-interest
  */
 
-const request = require('request');
+const request = require('request')
 
 module.exports = {
     getDataAsJSON: (query, callback) => {
@@ -19,6 +19,6 @@ module.exports = {
             } else {
                 callback(body.features)
             }
-        });
+        })
     }
 }

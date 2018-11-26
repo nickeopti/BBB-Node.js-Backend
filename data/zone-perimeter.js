@@ -4,7 +4,6 @@
  */
 
 const db = require('../db/postgres')
-const request = require('request');
 
 const queryString = 
     `SELECT ST_X(point) AS lon,

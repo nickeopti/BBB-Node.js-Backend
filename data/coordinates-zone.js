@@ -5,7 +5,6 @@
  */
 
 const db = require('../db/postgres')
-const request = require('request');
 
 const queryString = 
     `SELECT gid AS zone
