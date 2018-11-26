@@ -1,6 +1,9 @@
 /**
- * This module is still under development,
- * and it is currently NOT working!
+ * This module fetches geocoding from the MapBox API
+ * and returns the list of results as a JSON array.
+ * Notice that the array includes, among others,
+ * the _center_ property with the coordinates of
+ * the geocoded point-of-interest
  */
 
 const request = require('request');

@@ -1,6 +1,7 @@
 /**
- * This module is still under development,
- * and it is currently NOT working!
+ * This module returns the gid of the zone
+ * that encapsulates the point given by
+ * its lat/lon coordinates
  */
 
 const db = require('../db/postgres')
