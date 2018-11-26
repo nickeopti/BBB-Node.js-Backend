@@ -1,3 +1,8 @@
+/**
+ * Module for handling and delivering the
+ * required data, to display the homezone-distance-wheel
+ */
+
 const db = require('../db/postgres')
 
 const queryString = 
@@ -11,6 +16,13 @@ const queryString =
         WHERE hz.zone_hz = $1 AND hz.days_hz = $2
         ORDER BY distance ASC;`
 
+/**
+ * Prepare the data for direct usage by the client-end
+ * Groups all the zones into a handful clusters,
+ * grouped together by the distance to the respective homezones
+ * @param {*} zones The original, non-grouped zones
+ * @returns The grouped clusters
+ */
 function prepareData(zones) {
     if (zones === undefined || zones === null || zones.length === 0)
         return undefined
@@ -40,6 +52,9 @@ function prepareData(zones) {
     return clusters
 }
 
+/**
+* Requires the _zone_ and _day_ as query arguments
+*/
 module.exports = {
     getDataAsJSON: (query, callback) => {
         let sqlQuery = {

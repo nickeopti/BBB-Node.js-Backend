@@ -3,8 +3,10 @@ const app = express()
 const port = 3000
 
 
-// Add headers for allowing COR while developing
-// This is probably only necessary in my local setup
+/** 
+* Add headers for allowing COR while developing
+* This is probably only necessary in my local setup
+*/
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -13,11 +15,14 @@ app.use(function (req, res, next) {
     next();
 });
 
-
+/**
+ * Handle all GET requests to /data, and get the data/handler.js to handle it
+ */
 const handler = require('./data/handler')
 app.get('/data', (req, res) => {
     handler.handle(req.query, (result) => {
         console.log(result)
+        // All results are send back to the client as JSON strings
         res.send(JSON.stringify(result))
     })
 })

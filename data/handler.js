@@ -4,6 +4,9 @@ const zone_count = require('./zone-count')
 const zone_act = require('./zone-act')
 const geocode_zone = require('./geocode-zone')
 
+/**
+ * Dictionary of currently available data-handlers
+ */
 const handlers = {
     'zone-act': zone_act,
     'zone-count': zone_count,
@@ -17,6 +20,7 @@ module.exports = {
         handler = handlers[query.data]
         
         if (handler !== undefined) {
+            // Get the specific data-handler to handle the GET request
             handler.getDataAsJSON(query, (result) => {
                 callback(result)
             })

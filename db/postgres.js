@@ -1,7 +1,14 @@
+/**
+ * Module for handling all underlying requests
+ * to the PostgreSQL database.
+ * Every query to the database ought to be done
+ * via the exported query function of this module
+ */
+
 const { Pool } = require('pg')
 
 const pool = new Pool({
-  user: 'nicke',
+  user: 'nicke', // The current local Linux-user
   host: '/var/run/postgresql',
   database: 'bbb',
   password: '',
@@ -11,6 +18,5 @@ const pool = new Pool({
 module.exports = {
   query: (text, params, callback) => {
     return pool.query(text, params, callback)
-  },
-  queryAwait: (query) => pool.query(query)
+  }
 }

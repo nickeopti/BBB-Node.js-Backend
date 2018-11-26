@@ -1,3 +1,10 @@
+/**
+ * Module for delivering data regarding the activity
+ * in a given zone throughout one day
+ * The returned JSON consists of an array of
+ * objects describing the activity each hour
+ */
+
 const db = require('../db/postgres')
 
 const queryString = 
@@ -22,6 +29,9 @@ function prepareData(rows) {
     return data
 }
 
+/**
+* Requires the _zone_ and _day_ as query arguments
+*/
 module.exports = {
     getDataAsJSON: (query, callback) => {
         let sqlQuery = {

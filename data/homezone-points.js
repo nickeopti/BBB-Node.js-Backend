@@ -1,3 +1,11 @@
+/**
+ * Module for delivering data regarding which zones,
+ * that in a given zone comes from, ie their respective homezones
+ * It returns an array of objects, each containing
+ * their respective lat and long coordinates as well as
+ * the share of people coming from that homezone
+ */
+
 const db = require('../db/postgres')
 
 const queryString = 
@@ -10,6 +18,9 @@ const queryString =
     	    ON z1.gid = hz.home_hz
         WHERE hz.zone_hz = $1 AND hz.days_hz = $2;`
 
+/**
+* Requires the _zone_ and _day_ as query arguments
+*/
 module.exports = {
     getDataAsJSON: (query, callback) => {
         let sqlQuery = {
