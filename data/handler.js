@@ -8,7 +8,7 @@
  /**
   * Add each new data-processing module
   * as a requirement here, and include
-  * an entry for it in the dictionay below
+  * an entry for it in the dictionary below
   */
 const homezone_wheel = require('./homezone-wheel')
 const homezone_points = require('./homezone-points')
