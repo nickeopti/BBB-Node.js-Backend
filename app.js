@@ -27,7 +27,7 @@ app.get('/data', (req, res) => {
     })
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`)) 
+app.listen(port, () => console.log(`BlockByBlock Node.js server listening on port ${port}!`)) 
 
 
 /***** FOR TESTING PURPOSES ONLY *****/
