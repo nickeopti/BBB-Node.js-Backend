@@ -15,7 +15,7 @@ const homezone_points = require('./homezone-points')
 const zone_count = require('./zone-count')
 const zone_act = require('./zone-act')
 const geocode_zone = require('./geocode')
-const coordinates_zone = require('./coordinates-zone')
+const containing_zone = require('./containing-zone')
 const zone_perimeter = require('./zone-perimeter')
 
 /**
@@ -27,7 +27,7 @@ const handlers = {
     'homezone-wheel': homezone_wheel,
     'homezone-points': homezone_points,
     'geocode-zone': geocode_zone,
-    'coordinates-zone': coordinates_zone,
+    'containing-zone': containing_zone,
     'zone-perimeter': zone_perimeter
 }
 
