@@ -28,12 +28,3 @@ app.get('/data', (req, res) => {
 })
 
 app.listen(port, () => console.log(`BlockByBlock Node.js server listening on port ${port}!`)) 
-
-
-/***** FOR TESTING PURPOSES ONLY *****/
-/*
-const hzp = require('./data/homezone-points')
-hzp.getDataAsJSON({zone: 145, day: 5}, (res) => {
-    console.log(res)
-})
-*/
