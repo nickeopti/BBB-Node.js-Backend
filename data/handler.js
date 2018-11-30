@@ -17,6 +17,7 @@ const zone_act = require('./zone-act')
 const geocode_zone = require('./geocode')
 const containing_zone = require('./containing-zone')
 const zone_perimeter = require('./zone-perimeter')
+const influence_area = require('./influence-area')
 
 /**
  * Dictionary of currently available data-handlers
@@ -28,7 +29,8 @@ const handlers = {
     'homezone-points': homezone_points,
     'geocode-zone': geocode_zone,
     'containing-zone': containing_zone,
-    'zone-perimeter': zone_perimeter
+    'zone-perimeter': zone_perimeter,
+    'influence-area': influence_area
 }
 
 module.exports = {
