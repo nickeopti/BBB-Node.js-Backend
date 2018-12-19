@@ -18,6 +18,8 @@ const geocode_zone = require('./geocode')
 const containing_zone = require('./containing-zone')
 const zone_perimeter = require('./zone-perimeter')
 const influence_area = require('./influence-area')
+const activity_week = require('./activity-week')
+const activity_day = require('./activity-day')
 
 /**
  * Dictionary of currently available data-handlers
@@ -30,7 +32,9 @@ const handlers = {
     'geocode-zone': geocode_zone,
     'containing-zone': containing_zone,
     'zone-perimeter': zone_perimeter,
-    'influence-area': influence_area
+    'influence-area': influence_area,
+    'activity-week': activity_week,
+    'activity-day': activity_day
 }
 
 module.exports = {
