@@ -1,7 +1,8 @@
 /**
  * Module for delivering data regarding the activity
- * in a given zone throughout one day
- * The returned JSON consists of an array of
+ * in a given zone throughout each day of the week.
+ * The returned JSON consists of an object
+ * with keys for each day that holds an array of
  * objects describing the activity each hour
  */
 
