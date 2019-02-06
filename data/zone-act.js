@@ -34,7 +34,7 @@ function prepareData(rows) {
         data[activity.day].push(activity)
 
         if (activity.hour === 23) {
-            let act = data[activity.day][23]
+            let act = Object.assign({}, data[activity.day][0])
             act.hour = 24
             data[activity.day].push(act)
         }
