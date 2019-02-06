@@ -8,13 +8,21 @@
 const db = require('../db/postgres')
 
 const queryString = 
-    `SELECT day,
-            hour,
-            people AS count,
-            density
-        FROM mtc_activity
-        WHERE zone = $1 AND day = $2
-        ORDER BY hour;`
+`
+SELECT
+    day.id,
+    day.description,
+    act.hour,
+    act.people,
+    act.density
+FROM mtc_activity AS act
+INNER JOIN day AS day
+    ON act.day = day.id
+WHERE
+    act.zone = $1 AND
+    act.day = $2
+ORDER BY act.hour ASC;
+`
 
 const days = {
     1: 'Monday',

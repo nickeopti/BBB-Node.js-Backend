@@ -7,12 +7,13 @@
 const db = require('../db/postgres')
 
 const queryString = 
-    `SELECT id AS zone
-        FROM mtc 
-        WHERE ST_Contains(
-            geom,
-            ST_SetSRID(ST_MakePoint($1, $2), 4326)
-        );`
+`
+SELECT
+    id AS zone
+FROM mtc 
+WHERE
+    ST_Contains(geom, ST_SetSRID(ST_MakePoint($1, $2), 4326));
+`
 
 module.exports = {
     getDataAsJSON: (query, callback) => {
