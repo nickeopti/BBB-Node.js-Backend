@@ -11,7 +11,7 @@ const queryString =
         FROM 
             (SELECT (ST_Dump(ST_RemoveRepeatedPoints(ST_Points(geom)))).geom AS point
                 FROM mtc
-                WHERE gid = $1) s;`
+                WHERE id = $1) s;`
 
 /**
 * Requires the _zone_ as query argument

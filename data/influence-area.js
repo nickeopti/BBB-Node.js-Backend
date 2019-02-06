@@ -8,21 +8,21 @@
 const db = require('../db/postgres')
 
 const queryString = 
-    `SELECT SUM(ST_Area(zone.geom::geography)/1000000) as AREA
+    `SELECT SUM(ST_Area(zone.geom::geography))/1000000 as AREA
         FROM mtc_homezone AS hz
         INNER JOIN mtc AS zone
-            ON zone.gid = hz.home_hz
-        WHERE hz.zone_hz = $1 AND hz.days_hz = $2;`
+            ON zone.id = hz.homezone
+        WHERE hz.zone = $1 AND hz.day = $2;`
 
 const altQueryString = 
-    `SELECT SUM(AREA) as AREA
+    `SELECT SUM(AREA)/1000000 as AREA
         FROM (
-            SELECT DISTINCT ON (home_hz)
-                    ST_Area(zone.geom::geography)/1000000 as AREA
+            SELECT DISTINCT ON (homezone)
+                    ST_Area(zone.geom::geography) as AREA
                 FROM mtc_homezone AS hz
                 INNER JOIN mtc AS zone
-                    ON zone.gid = hz.home_hz
-                WHERE hz.zone_hz = $1) s;`;
+                    ON zone.id = hz.homezone
+                WHERE hz.zone = $1) s;`;
 
 /**
 * Requires the _zone_ and _day_ as query arguments

@@ -11,12 +11,12 @@
 const db = require('../db/postgres')
 
 const queryString = 
-    `SELECT count_act AS count,
-            density AS density,
-            days_act AS day,
-            hours_act AS hour
+    `SELECT people AS count,
+            density,
+            day,
+            hour
         FROM mtc_activity
-        WHERE zone_act = $1;`
+        WHERE zone = $1;`
 
 function prepareData(rows) {
     var days = {}

@@ -8,12 +8,12 @@
 const db = require('../db/postgres')
 
 const queryString = 
-    `SELECT days_act AS day,
-            hours_act AS hour,
-            count_act::integer AS count,
-            density::real AS density
+    `SELECT day,
+            hour,
+            people AS count,
+            density
         FROM mtc_activity
-        WHERE zone_act = $1
+        WHERE zone = $1
         ORDER BY day, hour;`
 
 function prepareData(rows) {
