@@ -6,15 +6,22 @@
 const db = require('../db/postgres')
 
 const queryString = 
-    `SELECT CAST(hz.shared_hz AS DOUBLE PRECISION) AS percent,
-            ST_Distance(ST_Centroid(z1.geom)::geography, ST_Centroid(z2.geom)::geography) AS distance
-	    FROM mtc_homezone AS hz
-        INNER JOIN mtc AS z1
-    	    ON z1.gid = hz.zone_hz
-        INNER JOIN mtc AS z2
-    	    ON z2.gid = hz.home_hz
-        WHERE hz.zone_hz = $1 AND hz.days_hz = $2
-        ORDER BY distance ASC;`
+    `SELECT
+        CAST(hz.shared_hz AS DOUBLE PRECISION) AS percent,
+        ST_Distance(ST_Centroid(z1.geom)::geography, ST_Centroid(z2.geom)::geography) AS distance,
+        SUM(act.count_act) * CAST(hz.shared_hz AS DOUBLE PRECISION) AS people
+    FROM mtc_homezone AS hz
+    INNER JOIN mtc AS z1
+        ON z1.gid = hz.zone_hz
+    INNER JOIN mtc AS z2
+        ON z2.gid = hz.home_hz
+    INNER JOIN mtc_activity AS act
+        ON act.zone_act = hz.zone_hz AND act.days_act = hz.days_hz
+    WHERE
+        hz.zone_hz = $1 AND
+        hz.days_hz = $2
+    GROUP BY hz.id_hz, z1.geom, z2.geom
+    ORDER BY distance ASC;`
 
 /**
  * Prepare the data for direct usage by the client-end
@@ -31,24 +38,35 @@ function prepareData(zones) {
     var clusterDistances = [0.00, 0.55, 1.05, 2.05, 5.05, 10, 20]
     var clusters = []
     var accumulatedPercentage = 0
+    var accumulatedPeople = 0
     zones.forEach(zone => {
         if (zone.distance !== 0 && zone.distance/1000 >= clusterDistances[currentClusterIndex]) {
             // save the values
-            clusters[currentClusterIndex] = { percent: accumulatedPercentage, distance: Math.max(clusterDistances[currentClusterIndex]*1000-1, 0)}
+            clusters[currentClusterIndex] = {
+                percent: accumulatedPercentage,
+                distance: Math.max(clusterDistances[currentClusterIndex]*1000-1, 0),
+                people: Math.round(accumulatedPeople)
+            }
 
             // reset the values
             currentClusterIndex++
             accumulatedPercentage = zone.percent
+            accumulatedPeople = zone.people
         } else {
             accumulatedPercentage += zone.percent
+            accumulatedPeople += zone.people
         }
     });
     
     let longestDistance = zones[zones.length-1].distance
     let magnitude = Math.pow(10, longestDistance.toFixed(0).length - 1)
     let dist = Math.ceil(2*longestDistance / magnitude) / 2 * magnitude
-    clusters[currentClusterIndex] = { percent: accumulatedPercentage, distance: dist}
-    
+    clusters[currentClusterIndex] = {
+        percent: accumulatedPercentage,
+        distance: dist,
+        people: Math.round(accumulatedPeople)
+    }
+
     return clusters
 }
 
